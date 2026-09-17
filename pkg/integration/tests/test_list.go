@@ -232,6 +232,8 @@ var tests = []*components.IntegrationTest{
 	diff.RenameSimilarityThresholdChange,
 	file.ClickArrowToCollapse,
 	file.CollapseExpand,
+	file.CollapseParentDirectory,
+	file.CollapseParentDirectoryNoRootItem,
 	file.CopyMenu,
 	file.DirWithUntrackedFile,
 	file.DirectoryDiffWithRenamedFiles,
