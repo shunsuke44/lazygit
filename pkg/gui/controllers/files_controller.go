@@ -721,7 +721,7 @@ func (self *FilesController) expandAll() error {
 // Collapses the directory that the selected item sits in, and moves the cursor
 // onto it.
 func (self *FilesController) collapseParentDirectory() error {
-	parentIdx, found := self.parentIndex(self.context().GetSelectedLineIdx())
+	parentIdx, found := self.context().FileTreeViewModel.GetParentIndex(self.context().GetSelectedLineIdx())
 	if !found {
 		return nil
 	}
@@ -737,21 +737,6 @@ func (self *FilesController) collapseParentDirectory() error {
 	self.c.PostRefreshUpdate(self.context())
 
 	return nil
-}
-
-// Returns the index of the directory containing the item at the given index,
-// i.e. the closest item above it that is rendered at a smaller visual depth.
-// Returns false if the item is at the top level.
-func (self *FilesController) parentIndex(index int) (int, bool) {
-	depth := self.context().FileTreeViewModel.GetVisualDepth(index)
-
-	for i := index - 1; i >= 0; i-- {
-		if self.context().FileTreeViewModel.GetVisualDepth(i) < depth {
-			return i, true
-		}
-	}
-
-	return -1, false
 }
 
 func (self *FilesController) EnterFile(opts types.OnFocusOpts) error {
